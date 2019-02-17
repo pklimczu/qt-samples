@@ -34,7 +34,6 @@ void MainWindow::setupTableView()
 void MainWindow::setupModel()
 {
     m_pModel = new TableModel();
-    m_pModel->setHeaderData(0, Qt::Orientation::Horizontal, QVariant("Test"));
     m_pTableView->setModel(m_pModel);
 }
 

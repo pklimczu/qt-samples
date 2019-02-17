@@ -5,15 +5,8 @@
 
 TableModel::TableModel(QObject *parent)
 {
-    _readData("/home/pklimczu/Projekty/Qt/ModelFilterWidget/test_data.csv");
-}
-
-QModelIndex TableModel::index(int row, int column, const QModelIndex &parent) const
-{
-    if (!hasIndex(row, column, parent))
-    {
-        return QModelIndex();
-    }
+    Q_UNUSED(parent);
+    _readData("D:\\Projekty\\qt-samples\\ModelFilterWidget\\test_data.csv");
 }
 
 int TableModel::rowCount(const QModelIndex &parent) const
