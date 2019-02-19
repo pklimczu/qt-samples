@@ -113,19 +113,13 @@ Qt::ItemFlags TableModel::flags(const QModelIndex &index) const
     {
         return Qt::ItemIsEnabled;
     }
-    return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
+    return QAbstractItemModel::flags(index);
 }
 
 bool TableModel::insertRows(int position, int rows, const QModelIndex &index)
 {
     Q_UNUSED(index);
     beginInsertRows(QModelIndex(), position, position + rows - 1);
-
-    for (int row = 0; row < rows; row++)
-    {
-        m_EntryList.insert(position, {QString(), short(), QString()});
-    }
-
     endInsertRows();
     return true;
 }
@@ -147,7 +141,6 @@ bool TableModel::removeRows(int position, int rows, const QModelIndex &index)
 void TableModel::readData(const QString& filePath)
 {
     QFile file(filePath);
-
     removeRows(0, m_EntryList.size());
 
     if (file.open(QIODevice::ReadOnly | QIODevice::Text))
@@ -160,7 +153,6 @@ void TableModel::readData(const QString& filePath)
             m_EntryList.append(entry);
         }
     }
-
     insertRows(0, m_EntryList.size());
 }
 
