@@ -1,2 +1,3 @@
 build-*
-ModelFilterWidget/ModelFilterWidget.pro.user
+*.user
+*.user.*

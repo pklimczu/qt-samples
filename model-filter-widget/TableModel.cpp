@@ -6,7 +6,6 @@
 TableModel::TableModel(QObject *parent)
 {
     Q_UNUSED(parent);
-    _readData("D:\\Projekty\\qt-samples\\ModelFilterWidget\\test_data.csv");
 }
 
 int TableModel::rowCount(const QModelIndex &parent) const
@@ -114,19 +113,13 @@ Qt::ItemFlags TableModel::flags(const QModelIndex &index) const
     {
         return Qt::ItemIsEnabled;
     }
-    return QAbstractItemModel::flags(index) | Qt::ItemIsEditable;
+    return QAbstractItemModel::flags(index);
 }
 
 bool TableModel::insertRows(int position, int rows, const QModelIndex &index)
 {
     Q_UNUSED(index);
     beginInsertRows(QModelIndex(), position, position + rows - 1);
-
-    for (int row = 0; row < rows; row++)
-    {
-        m_EntryList.insert(position, {QString(), short(), QString()});
-    }
-
     endInsertRows();
     return true;
 }
@@ -145,9 +138,10 @@ bool TableModel::removeRows(int position, int rows, const QModelIndex &index)
     return true;
 }
 
-void TableModel::_readData(QString filePath)
+void TableModel::readData(const QString& filePath)
 {
     QFile file(filePath);
+    removeRows(0, m_EntryList.size());
 
     if (file.open(QIODevice::ReadOnly | QIODevice::Text))
     {
@@ -159,6 +153,7 @@ void TableModel::_readData(QString filePath)
             m_EntryList.append(entry);
         }
     }
+    insertRows(0, m_EntryList.size());
 }
 
 void Entry::addFromLine(QString line)

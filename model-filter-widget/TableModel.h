@@ -38,8 +38,8 @@ public:
     bool removeRows(int position, int rows, const QModelIndex &index = QModelIndex()) override;
 
     QList<Entry> getEntries() const { return m_EntryList; }
+    void readData(const QString &filePath);
 
 private:
-    void _readData(QString filePath);
     QList<Entry> m_EntryList;
 };
